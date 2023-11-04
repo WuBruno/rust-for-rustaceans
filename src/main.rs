@@ -1,4 +1,4 @@
-#![allow(unused_variables)]
+#![allow(unused)]
 
 mod rust_lang;
 
@@ -76,5 +76,38 @@ mod tests {
         }
 
         dbg!(z);
+    }
+
+    #[test]
+    fn listing_1_10() {
+        struct StrSplit<'s, 'p> {
+            delimeter: &'p str,
+            document: &'s str,
+        }
+        impl<'s, 'p> Iterator for StrSplit<'s, 'p> {
+            type Item = &'s str;
+
+            fn next(&mut self) -> Option<Self::Item> {
+                todo!()
+            }
+        }
+        fn str_before(s: &str, c: char) -> Option<&str> {
+            StrSplit {
+                document: s,
+                delimeter: &c.to_string(),
+            }
+            .next()
+        }
+    }
+
+    #[test]
+    fn listing_1_11() {
+        struct MutStr<'a, 'b> {
+            s: &'a mut &'b str,
+        }
+
+        let mut s2 = "hello";
+        *(MutStr { s: &mut s2 }.s) = "world";
+        dbg!(s2);
     }
 }
